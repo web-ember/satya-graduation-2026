@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Yashuu's Journey | Graduation Tribute</title>
   <meta name="description" content="An emotional graduation tribute website for Sai Srivalli Satya Yasaswini of UTA Arlington, Class of 2026." />
+  <meta name="theme-color" content="#02040a" />
+  <meta name="color-scheme" content="dark" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -440,9 +442,422 @@
       .orb, .reveal, .story-block.reveal, .story-image img, .memory-card img, .button, .ghost-button, .music-btn, .video-trigger, .intro-particles span, .intro-button { animation: none !important; transition: none !important; }
       #scene3d { display: none; }
     }
+
+    /* ==============================
+       GOD-TIER POLISH PASS
+       Keeps the original IDs/JS hooks intact.
+       ============================== */
+    :root {
+      --white: #ffffff;
+      --blue-glow: rgba(99, 180, 255, 0.38);
+      --blue-faint: rgba(154, 208, 255, 0.12);
+      --panel: rgba(5, 12, 24, 0.54);
+      --panel-strong: rgba(7, 18, 33, 0.72);
+      --ring: rgba(178, 221, 255, 0.34);
+      --ease: cubic-bezier(.2,.8,.2,1);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    ::selection { background: rgba(154, 208, 255, 0.32); color: #fff; }
+    :focus-visible { outline: 2px solid rgba(178,221,255,0.85); outline-offset: 4px; }
+
+    body {
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      overscroll-behavior-y: none;
+    }
+
+    .grain-layer, .cursor-glow, .soft-vignette {
+      position: fixed;
+      pointer-events: none;
+      inset: 0;
+    }
+
+    .grain-layer {
+      z-index: 3;
+      opacity: .13;
+      mix-blend-mode: overlay;
+      background-image:
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,.5) 0 1px, transparent 1px),
+        radial-gradient(circle at 75% 65%, rgba(154,208,255,.45) 0 1px, transparent 1px);
+      background-size: 36px 36px, 58px 58px;
+      mask-image: radial-gradient(circle at center, black, transparent 92%);
+    }
+
+    .soft-vignette {
+      z-index: 4;
+      background: linear-gradient(90deg, rgba(0,0,0,.22), transparent 18%, transparent 82%, rgba(0,0,0,.22));
+    }
+
+    .cursor-glow {
+      z-index: 4;
+      width: 460px;
+      height: 460px;
+      inset: auto;
+      left: 50%;
+      top: 50%;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(99,180,255,.12), transparent 64%);
+      transform: translate3d(-50%, -50%, 0);
+      opacity: .7;
+      filter: blur(4px);
+      transition: opacity .3s ease;
+    }
+
+    .glass {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before, .love-note::before, .album-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.16), transparent 28%, rgba(154,208,255,.08) 78%, transparent),
+        radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.12), transparent 28%);
+      opacity: .7;
+      transition: opacity .35s ease;
+    }
+
+    .site-nav::before, .intro-content::before, .story-text::before, .finale-card::before { pointer-events: none; }
+
+    .progress { transition: width .08s linear; }
+
+    .site-nav {
+      isolation: isolate;
+      box-shadow: 0 18px 50px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    .nav-links a.active {
+      color: var(--text);
+      background: rgba(154,208,255,.12);
+      box-shadow: inset 0 0 0 1px rgba(178,221,255,.12);
+    }
+
+    .hero-card {
+      isolation: isolate;
+      box-shadow: 0 40px 120px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    .hero-card::before {
+      animation: heroAurora 12s var(--ease) infinite alternate;
+    }
+
+    @keyframes heroAurora {
+      0% { transform: translate3d(-2%, -1%, 0) scale(1); opacity: .74; }
+      100% { transform: translate3d(2%, 1%, 0) scale(1.06); opacity: 1; }
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #fff, #9ad0ff 42%, #e8f6ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: none;
+      filter: drop-shadow(0 0 24px rgba(99,180,255,.16));
+    }
+
+    .button, .intro-button, .video-trigger {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .button::after, .intro-button::after, .video-trigger::after {
+      content: "";
+      position: absolute;
+      inset: -40% -80%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.72), transparent);
+      transform: translateX(-70%) rotate(10deg);
+      opacity: .65;
+      transition: transform .8s var(--ease);
+      z-index: -1;
+    }
+
+    .button:hover::after, .intro-button:hover::after, .video-trigger:hover::after {
+      transform: translateX(70%) rotate(10deg);
+    }
+
+    .ghost-button, .music-btn {
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 14px 34px rgba(0,0,0,.18);
+    }
+
+    .music-btn.is-playing {
+      background: rgba(154,208,255,.13);
+      border-color: rgba(178,221,255,.25);
+    }
+
+    .hero-photo {
+      transform-style: preserve-3d;
+      transition: transform .75s var(--ease), box-shadow .75s var(--ease), filter .75s var(--ease);
+    }
+
+    .hero-photo:hover {
+      transform: perspective(1200px) rotateY(-3deg) rotateX(1deg) translateY(-5px);
+      box-shadow: 0 44px 110px rgba(0,0,0,.58), 0 0 0 1px rgba(178,221,255,.16);
+    }
+
+    .hero-photo-caption, .story-text, .chapter-divider-inner, .meta-card {
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 18px 50px rgba(0,0,0,.2);
+    }
+
+    .section-heading h2, .chapter-title, .story-text h3, .finale-title {
+      text-wrap: balance;
+    }
+
+    .story-block {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .story-block::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -34px;
+      bottom: -34px;
+      width: 1px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, transparent, rgba(154,208,255,.16), transparent);
+      opacity: .55;
+      z-index: -1;
+    }
+
+    .story-text {
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      transform: translateZ(0);
+      transition: transform .5s var(--ease), border-color .5s var(--ease), background .5s var(--ease);
+    }
+
+    .story-block.visible .story-text:hover {
+      transform: translateY(-4px);
+      border-color: rgba(178,221,255,.24);
+      background: linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.045));
+    }
+
+    .story-image {
+      isolation: isolate;
+      aspect-ratio: 4 / 3;
+    }
+
+    .story-image::before, .memory-card::before {
+      content: "Open";
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      z-index: 2;
+      padding: 8px 11px;
+      border-radius: 999px;
+      color: rgba(255,255,255,.9);
+      background: rgba(2,7,14,.46);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(10px);
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+
+    .story-image:hover::before, .memory-card:hover::before { opacity: 1; transform: translateY(0); }
+
+    .memory-grid {
+      grid-auto-flow: dense;
+      align-items: stretch;
+    }
+
+    .memory-card:nth-child(6n + 1), .memory-card:nth-child(9n + 5) { grid-row: span 2; }
+    .memory-card:nth-child(10n + 3) { grid-column: span 2; }
+
+    .memory-card {
+      min-height: 220px;
+      transform-origin: center;
+    }
+
+    .memory-card img, .story-image img {
+      user-select: none;
+      -webkit-user-drag: none;
+      background: linear-gradient(135deg, rgba(154,208,255,.12), rgba(255,255,255,.04));
+    }
+
+    .image-fallback {
+      display: grid;
+      place-items: center;
+      min-height: inherit;
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      background:
+        radial-gradient(circle at 50% 35%, rgba(154,208,255,.12), transparent 30%),
+        rgba(255,255,255,.045);
+    }
+
+    .lightbox, .video-modal { overscroll-behavior: contain; }
+
+    .lightbox.open .lightbox-inner, .video-modal.open .video-modal-inner {
+      animation: modalRise .38s var(--ease) both;
+    }
+
+    @keyframes modalRise {
+      from { opacity: 0; transform: translateY(18px) scale(.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .lightbox-close:hover, .video-close:hover {
+      background: rgba(154,208,255,.18);
+      transform: scale(1.04);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: max(18px, env(safe-area-inset-right));
+      bottom: calc(18px + var(--safe-bottom));
+      z-index: 1200;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(4, 10, 18, .62);
+      color: #fff;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 44px rgba(0,0,0,.34);
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(14px) scale(.92);
+      pointer-events: none;
+      transition: opacity .32s ease, transform .32s ease, background .32s ease;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .back-to-top:hover { background: rgba(154,208,255,.16); }
+
+    .scroll-hint {
+      position: absolute;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%);
+      z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(248,251,255,.74);
+      font-size: .78rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      opacity: .9;
+    }
+
+    .scroll-hint span {
+      width: 22px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.26);
+      position: relative;
+    }
+
+    .scroll-hint span::before {
+      content: "";
+      position: absolute;
+      top: 7px;
+      left: 50%;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #fff;
+      transform: translateX(-50%);
+      animation: wheelDrop 1.6s ease infinite;
+    }
+
+    @keyframes wheelDrop {
+      0% { opacity: 0; transform: translate(-50%, 0); }
+      35% { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%, 13px); }
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      .cursor-glow { display: none; }
+      .story-image::before, .memory-card::before { opacity: .75; transform: none; content: "Tap"; }
+      .hero-photo:hover { transform: none; }
+    }
+
+    @media (max-width: 1120px) {
+      .story-block::before { left: 22px; opacity: .28; }
+      .memory-card:nth-child(n) { grid-column: auto; grid-row: auto; }
+      .memory-card:nth-child(7n + 2) { grid-row: span 2; }
+    }
+
+    @media (max-width: 760px) {
+      body::before { background-size: 82px 82px; opacity: .24; }
+      .site-nav {
+        top: 8px;
+        width: calc(100% - 18px);
+        border-radius: 22px;
+        gap: 10px;
+      }
+      .brand { font-size: 1.12rem; }
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+      }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { white-space: nowrap; font-size: .86rem; padding: 8px 12px; }
+      .hero { min-height: auto; padding: 28px 0 54px; }
+      .hero-card { padding: 22px; }
+      .hero h1 { font-size: clamp(3rem, 15vw, 4.6rem); }
+      .hero-subtitle, .story-text p, .love-note p, .finale-text { line-height: 1.82; }
+      .hero-photo { min-height: min(430px, 72vh); }
+      section { padding-bottom: 72px; }
+      .chapter-divider { margin: 44px 0 28px; }
+      .story-list { gap: 34px; }
+      .story-block::before { display: none; }
+      .story-image, .story-image img { min-height: min(360px, 68vh); }
+      .album-shell { padding: 12px; }
+      .memory-grid { gap: 12px; }
+      .memory-card { min-height: 260px; }
+      .lightbox, .video-modal { padding: 12px; }
+      .video-modal-inner, .lightbox-inner { border-radius: 18px; }
+      .scroll-hint { display: none; }
+    }
+
+    @media (max-width: 520px) {
+      .intro-content { width: calc(100% - 22px); border-radius: 28px; }
+      .intro-content h1 { font-size: clamp(2.8rem, 17vw, 3.7rem); }
+      .pill { font-size: .68rem; letter-spacing: .1em; padding: 9px 12px; }
+      .hero-card, .love-note, .story-text, .story-image, .album-shell, .finale-card { border-radius: 22px; }
+      .hero-actions { gap: 10px; }
+      .button, .ghost-button, .music-btn, .video-trigger, .intro-button { padding: 14px 16px; }
+      .story-text { padding: 20px; }
+      .chapter-divider-inner { padding: 20px 16px; border-radius: 20px; }
+      .memory-card { min-height: 300px; }
+      .back-to-top { width: 44px; height: 44px; right: 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cursor-glow, .grain-layer, .soft-vignette { display: none; }
+      .hero-card::before, .scroll-hint span::before, .button::after, .intro-button::after, .video-trigger::after { animation: none !important; transition: none !important; }
+    }
+
   </style>
 </head>
 <body>
+  <div id="top"></div>
+  <div class="grain-layer" aria-hidden="true"></div>
+  <div class="soft-vignette" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑</button>
   <div id="introGate" class="intro-gate">
     <div class="intro-bg"></div>
     <div class="intro-particles" aria-hidden="true">
@@ -523,9 +938,13 @@
                 <div class="hero-photo-caption">
                   <strong>Yashuu • Sattuu • Maverick in the making</strong>
                   <span>A heart full of warmth, a mind full of dreams, and a future that already shines.</span>
-                </div>
-              </div>
-            </div>
+                  <div class="scroll-hint" aria-hidden="true"><span></span>Scroll</div>
+          </div>
+                <div class="scroll-hint" aria-hidden="true"><span></span>Scroll</div>
+          </div>
+              <div class="scroll-hint" aria-hidden="true"><span></span>Scroll</div>
+          </div>
+            <div class="scroll-hint" aria-hidden="true"><span></span>Scroll</div>
           </div>
         </div>
       </section>
@@ -1136,6 +1555,201 @@
         resumeSceneAnimation();
       }
     });
+
+
+    // ==============================
+    // GOD-TIER STABILITY + UX LAYER
+    // This intentionally reuses existing IDs and functions.
+    // ==============================
+    const backToTop = document.getElementById('backToTop');
+    const cursorGlow = document.getElementById('cursorGlow');
+    const navAnchors = Array.from(document.querySelectorAll('.nav-links a'));
+    const navSections = navAnchors
+      .map((link) => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    function setMusicButtonState() {
+      if (!musicToggle) return;
+      musicToggle.classList.toggle('is-playing', musicPlaying && !music.paused);
+      musicToggle.setAttribute('aria-pressed', String(musicPlaying && !music.paused));
+    }
+
+    function updateChrome() {
+      updateProgress();
+      const showTop = window.scrollY > Math.max(420, window.innerHeight * 0.8);
+      backToTop.classList.toggle('visible', showTop);
+    }
+
+    window.addEventListener('scroll', updateChrome, { passive: true });
+    updateChrome();
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      burstHearts();
+    });
+
+    // Magnetic glass light: each glass card reacts subtly to pointer position.
+    document.querySelectorAll('.glass').forEach((card) => {
+      card.addEventListener('pointermove', (event) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${((event.clientX - rect.left) / rect.width) * 100}%`);
+        card.style.setProperty('--my', `${((event.clientY - rect.top) / rect.height) * 100}%`);
+      }, { passive: true });
+    });
+
+    if (cursorGlow && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      window.addEventListener('pointermove', (event) => {
+        cursorGlow.style.transform = `translate3d(${event.clientX - 230}px, ${event.clientY - 230}px, 0)`;
+      }, { passive: true });
+    }
+
+    // Lazy-load all memory images without changing filenames.
+    photos.forEach((img, index) => {
+      img.loading = index < 4 ? 'eager' : 'lazy';
+      img.decoding = 'async';
+      img.addEventListener('error', () => {
+        const parent = img.closest('.story-image, .memory-card');
+        if (!parent || parent.querySelector('.image-fallback')) return;
+        img.style.display = 'none';
+        const fallback = document.createElement('div');
+        fallback.className = 'image-fallback';
+        fallback.textContent = `Missing image: ${img.getAttribute('src') || 'memory photo'}`;
+        parent.appendChild(fallback);
+      }, { once: true });
+    });
+
+    // Active nav highlight.
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navAnchors.forEach((link) => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
+        });
+      });
+    }, { rootMargin: '-35% 0px -55% 0px', threshold: 0.01 });
+
+    navSections.forEach((section) => navObserver.observe(section));
+
+    // Keep music button honest if browser/system pauses audio.
+    music.addEventListener('play', () => { musicPlaying = true; setMusicButtonState(); });
+    music.addEventListener('pause', () => { setMusicButtonState(); });
+    setMusicButtonState();
+
+    // Safer body scroll lock that preserves current scroll position.
+    let scrollLockY = 0;
+    function lockPageScroll() {
+      scrollLockY = window.scrollY || document.documentElement.scrollTop;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollLockY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function unlockPageScroll() {
+      const y = Math.abs(parseInt(document.body.style.top || '0', 10)) || scrollLockY;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, y);
+    }
+
+    // Patch modal scroll behavior without changing original modal logic.
+    const originalPhotoHandlers = photos;
+    photos.forEach((img) => {
+      img.addEventListener('click', () => {
+        requestAnimationFrame(() => {
+          if (lightbox.classList.contains('open')) lockPageScroll();
+        });
+      });
+    });
+
+    const originalCloseLightbox = closeLightbox;
+    closeLightbox = function patchedCloseLightbox() {
+      originalCloseLightbox();
+      unlockPageScroll();
+    };
+
+    const originalOpenVideoModal = openVideoModal;
+    openVideoModal = function patchedOpenVideoModal() {
+      originalOpenVideoModal();
+      lockPageScroll();
+    };
+
+    const originalCloseVideoModal = closeVideoModal;
+    closeVideoModal = function patchedCloseVideoModal() {
+      originalCloseVideoModal();
+      unlockPageScroll();
+    };
+
+
+
+    // Because the original click listeners were registered earlier, add companion
+    // unlock listeners so modal close always restores mobile scrolling correctly.
+    lightboxClose.addEventListener('click', () => setTimeout(unlockPageScroll, 0));
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) setTimeout(unlockPageScroll, 0);
+    });
+    videoClose.addEventListener('click', () => setTimeout(unlockPageScroll, 0));
+    videoModal.addEventListener('click', (event) => {
+      if (event.target === videoModal) setTimeout(unlockPageScroll, 0);
+    });
+    openVideo.addEventListener('click', () => requestAnimationFrame(lockPageScroll));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setTimeout(unlockPageScroll, 0);
+    });
+
+    // Reduce expensive canvas work on low battery style situations: mobile + hidden below fold.
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+      const sceneObserver = new IntersectionObserver((entries) => {
+        const heroVisible = entries.some((entry) => entry.isIntersecting);
+        if (!experienceStarted || videoModal.classList.contains('open')) return;
+        if (heroVisible || window.innerWidth > 760) resumeSceneAnimation();
+        else pauseSceneAnimation();
+      }, { threshold: 0.02 });
+      sceneObserver.observe(heroSection);
+    }
+
+    // Small delight: chapter dividers emit a tiny burst when first seen.
+    const chapterBurstObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        if (experienceStarted && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          const rect = entry.target.getBoundingClientRect();
+          for (let i = 0; i < 6; i++) {
+            const node = document.createElement('div');
+            node.className = 'floating-heart';
+            node.textContent = i % 2 ? '✦' : '♡';
+            node.style.left = `${rect.left + rect.width / 2 + (Math.random() - .5) * 120}px`;
+            node.style.top = `${rect.top + window.scrollY + 20 + Math.random() * 20}px`;
+            node.style.fontSize = `${12 + Math.random() * 10}px`;
+            document.body.appendChild(node);
+            setTimeout(() => node.remove(), 3000);
+          }
+        }
+        chapterBurstObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.55 });
+
+    document.querySelectorAll('.chapter-divider').forEach((chapter) => chapterBurstObserver.observe(chapter));
+
+    // Final sanity: allow Enter/Space on photo cards for accessibility.
+    document.querySelectorAll('.story-image, .memory-card').forEach((card) => {
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', 'Open memory photo');
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          const img = card.querySelector('img');
+          if (img) img.click();
+        }
+      });
+    });
+
 
     document.body.style.overflowY = 'hidden';
   </script>
